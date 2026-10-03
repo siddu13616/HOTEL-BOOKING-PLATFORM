@@ -1,0 +1,1297 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StayEasy - Hotel Booking</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #17324d;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 420px;
+            background:
+                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url("https://images.unsplash.com/photo-1566073771259-6a8506099945")
+                center/cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* SEARCH */
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .search-box input,
+        .search-box select {
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #e85a2a;
+        }
+
+        /* SECTION */
+        section {
+            padding: 50px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+        }
+
+        /* HOTEL CARDS */
+        .hotel-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .hotel-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hotel-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .hotel-info {
+            padding: 20px;
+        }
+
+        .hotel-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .location {
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #f5a623;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* FILTERS */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filters select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* FEATURES */
+        .features {
+            background: white;
+        }
+
+        .feature-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            text-align: center;
+        }
+
+        .feature {
+            padding: 25px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        /* BOOKING */
+        .booking-section {
+            display: none;
+            background: white;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .booking-section h2 {
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #17324d;
+            color: white;
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 8px;
+        }
+
+
+        /* AUTHENTICATION */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-left: 25px;
+        }
+
+        .auth-buttons button {
+            padding: 9px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .signup-btn {
+            background: #ff6b35;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 1px solid white;
+        }
+
+        .user-area {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-left: 25px;
+        }
+
+        .user-area span {
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #777;
+            padding: 8px 14px;
+            font-size: 13px;
+        }
+
+        .auth-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+        .auth-box h2 {
+            text-align: center;
+            color: #17324d;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 22px;
+        }
+
+        .auth-box .form-group {
+            margin-bottom: 16px;
+        }
+
+        .auth-box input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .switch-auth {
+            text-align: center;
+            margin-top: 18px;
+            color: #666;
+        }
+
+        .switch-auth a {
+            color: #ff6b35;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-auth {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            background: transparent;
+            color: #555;
+            font-size: 25px;
+            padding: 3px 8px;
+        }
+
+        .auth-message {
+            display: none;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .auth-message.success {
+            display: block;
+            background: #e8f7ed;
+            color: #237a3b;
+        }
+
+        .auth-message.error {
+            display: block;
+            background: #fdecec;
+            color: #b42318;
+        }
+
+        .protected-note {
+            display: none;
+            background: #fff4e9;
+            color: #9a4b00;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 34px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .auth-buttons,
+            .user-area {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h2>🏨 StayEasy</h2>
+
+    <div style="display:flex; align-items:center; flex-wrap:wrap; justify-content:center;">
+        <a href="#home">Home</a>
+        <a href="#hotels">Hotels</a>
+        <a href="#features">Features</a>
+        <a href="#booking">Booking</a>
+
+        <div class="auth-buttons" id="authButtons">
+            <button class="login-btn" onclick="openAuth('login')">Login</button>
+            <button class="signup-btn" onclick="openAuth('signup')">Sign Up</button>
+        </div>
+
+        <div class="user-area" id="userArea">
+            <span id="welcomeUser"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Find Your Perfect Stay</h1>
+
+        <p>
+            Search and book hotels easily
+        </p>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Enter city or location">
+
+            <input
+                type="date"
+                id="checkin">
+
+            <input
+                type="date"
+                id="checkout">
+
+            <select id="guests">
+
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+
+            </select>
+
+            <button onclick="searchHotels()">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- HOTELS -->
+
+<section id="hotels">
+
+    <div class="section-title">
+
+        <h2>Popular Hotels</h2>
+
+        <p>Choose from our available hotels</p>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <select onchange="filterHotels()" id="priceFilter">
+
+            <option value="all">All Prices</option>
+            <option value="2000">Below ₹2000</option>
+            <option value="3000">Below ₹3000</option>
+            <option value="5000">Below ₹5000</option>
+
+        </select>
+
+
+        <select onchange="filterHotels()" id="ratingFilter">
+
+            <option value="all">All Ratings</option>
+            <option value="5">5 Star</option>
+            <option value="4">4+ Star</option>
+            <option value="3">3+ Star</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="hotel-container" id="hotelContainer">
+
+
+        <!-- HOTEL 1 -->
+
+        <div class="hotel-card"
+             data-location="Visakhapatnam"
+             data-price="2500"
+             data-rating="5">
+
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945">
+
+            <div class="hotel-info">
+
+                <h3>Ocean View Hotel</h3>
+
+                <p class="location">
+                    📍 Visakhapatnam
+                </p>
+
+                <p class="rating">
+                    ⭐⭐⭐⭐⭐ 5.0
+                </p>
+
+                <p class="price">
+                    ₹2500 / night
+                </p>
+
+                <button onclick="openBooking('Ocean View Hotel', 2500)">
+                    Book Now
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOTEL 2 -->
+
+        <div class="hotel-card"
+             data-location="Hyderabad"
+             data-price="1800"
+             data-rating="4">
+
+            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa">
+
+            <div class="hotel-info">
+
+                <h3>Grand Palace Hotel</h3>
+
+                <p class="location">
+                    📍 Hyderabad
+                </p>
+
+                <p class="rating">
+                    ⭐⭐⭐⭐ 4.5
+                </p>
+
+                <p class="price">
+                    ₹1800 / night
+                </p>
+
+                <button onclick="openBooking('Grand Palace Hotel', 1800)">
+                    Book Now
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOTEL 3 -->
+
+        <div class="hotel-card"
+             data-location="Bangalore"
+             data-price="3200"
+             data-rating="5">
+
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b">
+
+            <div class="hotel-info">
+
+                <h3>Royal Comfort Hotel</h3>
+
+                <p class="location">
+                    📍 Bangalore
+                </p>
+
+                <p class="rating">
+                    ⭐⭐⭐⭐⭐ 4.8
+                </p>
+
+                <p class="price">
+                    ₹3200 / night
+                </p>
+
+                <button onclick="openBooking('Royal Comfort Hotel', 3200)">
+                    Book Now
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOTEL 4 -->
+
+        <div class="hotel-card"
+             data-location="Chennai"
+             data-price="1500"
+             data-rating="3">
+
+            <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791">
+
+            <div class="hotel-info">
+
+                <h3>City Star Hotel</h3>
+
+                <p class="location">
+                    📍 Chennai
+                </p>
+
+                <p class="rating">
+                    ⭐⭐⭐ 3.8
+                </p>
+
+                <p class="price">
+                    ₹1500 / night
+                </p>
+
+                <button onclick="openBooking('City Star Hotel', 1500)">
+                    Book Now
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+    <div class="section-title">
+
+        <h2>Why Choose StayEasy?</h2>
+
+    </div>
+
+
+    <div class="feature-container">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔍
+            </div>
+
+            <h3>Easy Search</h3>
+
+            <p>
+                Quickly find hotels based on location and price.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <h3>Best Prices</h3>
+
+            <p>
+                Compare room prices and choose suitable options.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <h3>Secure Booking</h3>
+
+            <p>
+                Simple and secure reservation process.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⭐
+            </div>
+
+            <h3>Customer Reviews</h3>
+
+            <p>
+                Check ratings and reviews before booking.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BOOKING FORM -->
+
+<div class="booking-section" id="booking">
+
+    <h2>🏨 Complete Your Booking</h2>
+
+    <form onsubmit="confirmBooking(event)">
+
+        <div class="form-group">
+
+            <label>Selected Hotel</label>
+
+            <input
+                type="text"
+                id="selectedHotel"
+                readonly>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Price Per Night</label>
+
+            <input
+                type="text"
+                id="selectedPrice"
+                readonly>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="name"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="email"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Check-in Date</label>
+
+            <input
+                type="date"
+                id="bookingCheckin"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Check-out Date</label>
+
+            <input
+                type="date"
+                id="bookingCheckout"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Number of Guests</label>
+
+            <select id="bookingGuests">
+
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+
+            </select>
+
+        </div>
+
+
+        <button type="submit">
+            Confirm Booking
+        </button>
+
+        <button
+            type="button"
+            onclick="closeBooking()"
+            style="background:#777; margin-left:10px;">
+
+            Cancel
+
+        </button>
+
+    </form>
+
+</div>
+
+
+
+<!-- LOGIN / SIGN UP MODAL -->
+<div class="auth-modal" id="authModal">
+    <div class="auth-box">
+
+        <button class="close-auth" onclick="closeAuth()">×</button>
+
+        <!-- LOGIN -->
+        <div id="loginForm">
+            <h2>Welcome Back 👋</h2>
+            <p class="auth-subtitle">Login to continue to StayEasy</p>
+
+            <div class="auth-message" id="loginMessage"></div>
+
+            <form onsubmit="loginUser(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="auth-submit">Login</button>
+            </form>
+
+            <p class="switch-auth">
+                Don't have an account?
+                <a onclick="showSignup()">Create Account</a>
+            </p>
+        </div>
+
+        <!-- SIGN UP -->
+        <div id="signupForm" style="display:none;">
+            <h2>Create Account ✨</h2>
+            <p class="auth-subtitle">Join StayEasy today</p>
+
+            <div class="auth-message" id="signupMessage"></div>
+
+            <form onsubmit="signupUser(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" minlength="6" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" minlength="6" required>
+                </div>
+
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+
+            <p class="switch-auth">
+                Already have an account?
+                <a onclick="showLogin()">Login</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>🏨 StayEasy Hotel Booking</h3>
+
+    <p>
+        Find your perfect hotel and enjoy your journey.
+    </p>
+
+    <p>
+        © 2026 StayEasy. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* OPEN BOOKING */
+
+    function openBooking(hotel, price) {
+
+        if (!localStorage.getItem("stayEasyCurrentUser")) {
+            alert("Please login or sign up before booking a hotel.");
+            openAuth("login");
+            return;
+        }
+
+        document.getElementById("selectedHotel").value = hotel;
+
+        document.getElementById("selectedPrice").value =
+            "₹" + price + " / night";
+
+        document.getElementById("booking").style.display = "block";
+
+        document.getElementById("booking").scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* CLOSE BOOKING */
+
+    function closeBooking() {
+
+        document.getElementById("booking").style.display = "none";
+
+    }
+
+
+    /* CONFIRM BOOKING */
+
+    function confirmBooking(event) {
+
+        event.preventDefault();
+
+        let hotel =
+            document.getElementById("selectedHotel").value;
+
+        let name =
+            document.getElementById("name").value;
+
+        let checkin =
+            document.getElementById("bookingCheckin").value;
+
+        let checkout =
+            document.getElementById("bookingCheckout").value;
+
+        alert(
+            "Booking Confirmed!\n\n" +
+            "Hotel: " + hotel + "\n" +
+            "Guest: " + name + "\n" +
+            "Check-in: " + checkin + "\n" +
+            "Check-out: " + checkout
+        );
+
+        document.querySelector("#booking form").reset();
+
+        closeBooking();
+
+    }
+
+
+    /* SEARCH HOTELS */
+
+    function searchHotels() {
+
+        let location =
+            document.getElementById("location")
+            .value
+            .toLowerCase();
+
+        let hotels =
+            document.querySelectorAll(".hotel-card");
+
+        hotels.forEach(function(hotel) {
+
+            let hotelLocation =
+                hotel.dataset.location.toLowerCase();
+
+            if (
+                location === "" ||
+                hotelLocation.includes(location)
+            ) {
+
+                hotel.style.display = "block";
+
+            } else {
+
+                hotel.style.display = "none";
+
+            }
+
+        });
+
+        document.getElementById("hotels").scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* FILTER HOTELS */
+
+    function filterHotels() {
+
+        let maxPrice =
+            document.getElementById("priceFilter").value;
+
+        let minRating =
+            document.getElementById("ratingFilter").value;
+
+        let hotels =
+            document.querySelectorAll(".hotel-card");
+
+
+        hotels.forEach(function(hotel) {
+
+            let price =
+                Number(hotel.dataset.price);
+
+            let rating =
+                Number(hotel.dataset.rating);
+
+
+            let priceMatch =
+                maxPrice === "all" ||
+                price <= Number(maxPrice);
+
+            let ratingMatch =
+                minRating === "all" ||
+                rating >= Number(minRating);
+
+
+            if (priceMatch && ratingMatch) {
+
+                hotel.style.display = "block";
+
+            } else {
+
+                hotel.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================
+       LOGIN / SIGN UP SYSTEM
+       ========================= */
+
+    function openAuth(type) {
+        document.getElementById("authModal").style.display = "flex";
+
+        if (type === "signup") {
+            showSignup();
+        } else {
+            showLogin();
+        }
+    }
+
+    function closeAuth() {
+        document.getElementById("authModal").style.display = "none";
+        clearAuthMessages();
+    }
+
+    function showLogin() {
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "none";
+        clearAuthMessages();
+    }
+
+    function showSignup() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+        clearAuthMessages();
+    }
+
+    function clearAuthMessages() {
+        document.getElementById("loginMessage").className = "auth-message";
+        document.getElementById("loginMessage").textContent = "";
+
+        document.getElementById("signupMessage").className = "auth-message";
+        document.getElementById("signupMessage").textContent = "";
+    }
+
+    function showMessage(elementId, message, type) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.className = "auth-message " + type;
+    }
+
+    function getUsers() {
+        return JSON.parse(localStorage.getItem("stayEasyUsers") || "[]");
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem("stayEasyUsers", JSON.stringify(users));
+    }
+
+    function signupUser(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+        if (password !== confirmPassword) {
+            showMessage("signupMessage", "Passwords do not match.", "error");
+            return;
+        }
+
+        if (password.length < 6) {
+            showMessage("signupMessage", "Password must contain at least 6 characters.", "error");
+            return;
+        }
+
+        const users = getUsers();
+
+        if (users.some(user => user.email === email)) {
+            showMessage("signupMessage", "An account with this email already exists.", "error");
+            return;
+        }
+
+        users.push({
+            name: name,
+            email: email,
+            password: password
+        });
+
+        saveUsers(users);
+
+        localStorage.setItem(
+            "stayEasyCurrentUser",
+            JSON.stringify({ name: name, email: email })
+        );
+
+        showMessage("signupMessage", "Account created successfully!", "success");
+
+        setTimeout(function() {
+            closeAuth();
+            updateAuthUI();
+        }, 700);
+    }
+
+    function loginUser(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+        const password = document.getElementById("loginPassword").value;
+
+        const users = getUsers();
+
+        const user = users.find(function(account) {
+            return account.email === email && account.password === password;
+        });
+
+        if (!user) {
+            showMessage("loginMessage", "Invalid email or password.", "error");
+            return;
+        }
+
+        localStorage.setItem(
+            "stayEasyCurrentUser",
+            JSON.stringify({ name: user.name, email: user.email })
+        );
+
+        showMessage("loginMessage", "Login successful!", "success");
+
+        setTimeout(function() {
+            closeAuth();
+            updateAuthUI();
+        }, 700);
+    }
+
+    function logout() {
+        localStorage.removeItem("stayEasyCurrentUser");
+        updateAuthUI();
+        closeBooking();
+        alert("You have been logged out.");
+    }
+
+    function updateAuthUI() {
+        const currentUser = JSON.parse(
+            localStorage.getItem("stayEasyCurrentUser") || "null"
+        );
+
+        const authButtons = document.getElementById("authButtons");
+        const userArea = document.getElementById("userArea");
+        const welcomeUser = document.getElementById("welcomeUser");
+
+        if (currentUser) {
+            authButtons.style.display = "none";
+            userArea.style.display = "flex";
+            welcomeUser.textContent = "Hi, " + currentUser.name;
+        } else {
+            authButtons.style.display = "flex";
+            userArea.style.display = "none";
+        }
+    }
+
+    /* Close modal when clicking outside the login box */
+    document.getElementById("authModal").addEventListener("click", function(event) {
+        if (event.target === this) {
+            closeAuth();
+        }
+    });
+
+    /* Keep login state after page refresh */
+    document.addEventListener("DOMContentLoaded", function() {
+        updateAuthUI();
+    });
+
+
+</script>
+
+</body>
+</html>
